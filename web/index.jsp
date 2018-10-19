@@ -14,7 +14,7 @@
         
     </head>
     <body>
-        <h1>Bienvenido al sitio de compras</h1>
+        <h1>Bienvenido al sitio de reserva</h1>
         <br>
         <h3>Estos son los productos disponibles</h3>
         
@@ -35,6 +35,8 @@
             lista.add(lapizMina);
             lista.add(regla);
             lista.add(plumon);
+            
+            request.getSession().setAttribute("lista", lista);
 
         %>
         
@@ -50,19 +52,22 @@
             </thead>
             <tbody>
                 <%
+                if(request.getSession().getAttribute("listaActualizada")!=null){
+                    lista=(List<Producto>)request.getSession().getAttribute("listaActualizada");
+                }    
+                    
                 for (Producto p : lista) {%>  
                 <tr>
                     <td><%= p.getId()%></td>
                     <td><%= p.getNombre()%></td>
                     <td><%= p.getPrecio()%></td>
-                    <td><%= p.getStock()%></td>
+                    <td><%= p.getStock()%> unidades sin reservar</td>
                 </tr>
                 <%} %>
             </tbody>
         </table>
         <br>
-
-        
+        <a href="reservar.jsp">Reservar</a>
         
     </body>
 </html>
